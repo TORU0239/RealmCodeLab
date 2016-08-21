@@ -26,16 +26,14 @@ import io.realm.hanson2.twitter.pattern.view.MainView;
 
 public class TimelineFragment extends ListFragment implements MainView{
     public TimelineFragment() {}
-
     private MainPresenter mainPresenter;
-
     private Realm realm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ListAdapter adapter = new ArrayAdapter<String>(getContext(),
+        final ListAdapter adapter = new ArrayAdapter<>(getContext(),
                 R.layout.list_item_tweet,
                 R.id.text,
                 Arrays.asList("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -66,7 +64,6 @@ public class TimelineFragment extends ListFragment implements MainView{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainPresenter = new MainPresenteerIml(this);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -85,9 +82,7 @@ public class TimelineFragment extends ListFragment implements MainView{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ((RealmBaseAdapter<?>) getListAdapter()).updateData(null);
-        realm.close();
-        realm = null;
+        mainPresenter.onRealmRelease();
     }
 
     @Override
@@ -109,5 +104,10 @@ public class TimelineFragment extends ListFragment implements MainView{
             }
         };
         setListAdapter(tweetAdapter);
+    }
+
+    @Override
+    public void onListRelease() {
+        ((RealmBaseAdapter<?>) getListAdapter()).updateData(null);
     }
 }

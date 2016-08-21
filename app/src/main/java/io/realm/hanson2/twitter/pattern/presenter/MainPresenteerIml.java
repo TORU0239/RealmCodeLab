@@ -23,4 +23,11 @@ public class MainPresenteerIml implements MainPresenter{
         final RealmResults<Tweet> tweetResult = realm.where(Tweet.class).findAllSorted("createdAt", Sort.DESCENDING);
         mainView.onList(tweetResult);
     }
+
+    @Override
+    public void onRealmRelease() {
+        mainView.onListRelease();
+        realm.close();
+        realm = null;
+    }
 }

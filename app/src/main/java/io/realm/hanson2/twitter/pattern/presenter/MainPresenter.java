@@ -6,4 +6,7 @@ package io.realm.hanson2.twitter.pattern.presenter;
 public interface MainPresenter {
     // 뷰에 대한 로직 핸들링
     void onGetMyTweet();
+
+    // realm 객체 해제
+    void onRealmRelease();
 }

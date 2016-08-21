@@ -9,4 +9,5 @@ import io.realm.hanson2.twitter.model.Tweet;
 public interface MainView {
     // 뷰만 핸들링하는 부분
     void onList(RealmResults<Tweet> tweet);
+    void onListRelease();
 }

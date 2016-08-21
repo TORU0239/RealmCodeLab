@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,11 @@ import io.realm.hanson2.twitter.pattern.presenter.MainPresenter;
 import io.realm.hanson2.twitter.pattern.view.MainView;
 
 public class TimelineFragment extends ListFragment implements MainView{
-    public TimelineFragment() {}
     protected MainPresenter mainPresenter;
+
+    public TimelineFragment() {
+        mainPresenter = new MainPresenterImp(this);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,13 +65,8 @@ public class TimelineFragment extends ListFragment implements MainView{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mainPresenter = new MainPresenterImp(this);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.w("Timeline", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         mainPresenter.onGetMyTweet();
     }

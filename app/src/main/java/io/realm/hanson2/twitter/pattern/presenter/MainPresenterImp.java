@@ -9,11 +9,11 @@ import io.realm.hanson2.twitter.pattern.view.MainView;
 /**
  * Created by toru on 2016. 8. 20..
  */
-public class MainPresenteerIml implements MainPresenter{
-    private MainView mainView;
-    private Realm realm;
+public class MainPresenterImp implements MainPresenter{
+    protected MainView mainView;
+    protected Realm realm;
 
-    public MainPresenteerIml(MainView mainView) {
+    public MainPresenterImp(MainView mainView) {
         this.mainView = mainView;
     }
 

@@ -20,14 +20,13 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import io.realm.hanson2.twitter.R;
 import io.realm.hanson2.twitter.model.Tweet;
-import io.realm.hanson2.twitter.pattern.presenter.MainPresenteerIml;
+import io.realm.hanson2.twitter.pattern.presenter.MainPresenterImp;
 import io.realm.hanson2.twitter.pattern.presenter.MainPresenter;
 import io.realm.hanson2.twitter.pattern.view.MainView;
 
 public class TimelineFragment extends ListFragment implements MainView{
     public TimelineFragment() {}
-    private MainPresenter mainPresenter;
-    private Realm realm;
+    protected MainPresenter mainPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,20 +62,14 @@ public class TimelineFragment extends ListFragment implements MainView{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mainPresenter = new MainPresenteerIml(this);
+        mainPresenter = new MainPresenterImp(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        realm = Realm.getDefaultInstance();
         mainPresenter.onGetMyTweet();
-    }
-
-    @NonNull
-    protected RealmResults<Tweet> buildTweetList(Realm realmInstance){
-        return realmInstance.where(Tweet.class).findAllSorted("createdAt", Sort.DESCENDING);
     }
 
     @Override

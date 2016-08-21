@@ -1,22 +1,20 @@
 package io.realm.hanson2.twitter.ui.fragment;
 
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
-import io.realm.Sort;
-import io.realm.hanson2.twitter.model.Tweet;
+import io.realm.hanson2.twitter.pattern.presenter.FavoritedPresenterImp;
 
 /**
  * Created by toru on 2016. 8. 20..
  */
-public class FavoritedFragment extends TimelineFragment {
+public class FavoritedFragment extends TimelineFragment{
 
-    @NonNull
     @Override
-    protected RealmResults<Tweet> buildTweetList(Realm realmInstance) {
-        return realmInstance.where(Tweet.class)
-                            .equalTo("favorited", true)
-                            .findAllSorted("createdAt", Sort.DESCENDING);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mainPresenter = new FavoritedPresenterImp(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
